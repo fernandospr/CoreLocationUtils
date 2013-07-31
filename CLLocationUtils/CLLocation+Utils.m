@@ -1,8 +1,9 @@
 //
 //  CLLocation+Utils.m
-//  GeoExampleProject
+//  CLLocationUtils
 //
 //  Created by Fernando Sproviero on 10/07/13.
+//  Source code based on http://www.movable-type.co.uk/scripts/latlong.html
 //  Copyright (c) 2013 Fernando Sproviero. All rights reserved.
 //
 
