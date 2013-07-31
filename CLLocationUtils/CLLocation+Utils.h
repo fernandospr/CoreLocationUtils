@@ -9,6 +9,23 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+/*
+ *  CLLocationRadianCoordinate2D
+ *
+ *  Discussion:
+ *    A structure that contains a geographical coordinate.
+ *
+ *  Fields:
+ *    latitude:
+ *      The latitude in radians.
+ *    longitude:
+ *      The longitude in radians.
+ */
+typedef struct {
+	double latitude;
+	double longitude;
+} CLLocationRadianCoordinate2D;
+
 @interface CLLocation (Utils)
 
 /*
@@ -47,20 +64,12 @@
 - (NSString *)prettyLongitude;
 
 /*
- *  radianLatitude:
+ *  radianCoordinate
  *
  *  Discussion:
- *    Returns the latitude in radians.
+ *    Returns the coordinate of the current location in radians.
  */
-- (double)radianLatitude;
-
-/*
- *  radianLatitude:
- *
- *  Discussion:
- *    Returns the latitude in radians.
- */
-- (double)radianLongitude;
+- (CLLocationRadianCoordinate2D)radianCoordinate;
 
 /*
  *  haversineDistanceFromLocation:

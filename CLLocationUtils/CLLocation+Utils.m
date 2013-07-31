@@ -23,12 +23,11 @@ double radiansToDegrees(double radians)
     return radians * 180 / M_PI;
 }
 
-- (double)radianLatitude {
-    return degreesToRadians(self.coordinate.latitude);
-}
-
-- (double)radianLongitude {
-    return degreesToRadians(self.coordinate.longitude);
+- (CLLocationRadianCoordinate2D)radianCoordinate {
+    CLLocationRadianCoordinate2D radCoord;
+    radCoord.latitude = degreesToRadians(self.coordinate.latitude);
+    radCoord.longitude = degreesToRadians(self.coordinate.longitude);
+    return radCoord;
 }
 
 - (id)initWithRadianLatitude:(double)latitude radianLongitude:(double)longitude
@@ -209,11 +208,11 @@ double radiansToDegrees(double radians)
 }
 
 - (CLLocation *)intersectionWithSelfBearing:(double)bearing1 toLocation:(const CLLocation *)location bearing:(double)bearing2
-{
-    double lat1 = self.radianLatitude;
-    double lon1 = self.radianLongitude;
-    double lat2 = location.radianLatitude;
-    double lon2 = location.radianLongitude;
+{self.coordinate
+    double lat1 = self.radianCoordinate.latitude;
+    double lon1 = self.radianCoordinate.longitude;
+    double lat2 = location.radianCoordinate.latitude;
+    double lon2 = location.radianCoordinate.longitude;
     double brng13 = degreesToRadians(bearing1);
     double brng23 = degreesToRadians(bearing2);
     double dLat = lat2-lat1;
@@ -267,8 +266,8 @@ double radiansToDegrees(double radians)
 {
     double dLat = degreesToRadians(location.coordinate.latitude - self.coordinate.latitude);
     double dLon = degreesToRadians(fabs(location.coordinate.longitude - self.coordinate.longitude));
-    double lat1 = self.radianLatitude;
-    double lat2 = location.radianLatitude;
+    double lat1 = self.radianCoordinate.latitude;
+    double lat2 = location.radianCoordinate.latitude;
     
     double dPhi = log(tan(lat2/2+M_PI_4)/tan(lat1/2+M_PI_4));
     double q = (isfinite(dLat/dPhi)) ? dLat/dPhi : cos(lat1);  // E-W line gives dPhi=0
@@ -284,8 +283,8 @@ double radiansToDegrees(double radians)
 - (double)rhumbBearingToLocation:(const CLLocation *)location
 {
     double dLon = degreesToRadians(location.coordinate.longitude - self.coordinate.longitude);
-    double lat1 = self.radianLatitude;
-    double lat2 = location.radianLatitude;
+    double lat1 = self.radianCoordinate.latitude;
+    double lat2 = location.radianCoordinate.latitude;
 
     double dPhi = log(tan(lat2/2+M_PI_4)/tan(lat1/2+M_PI_4));
     if (fabs(dLon) > M_PI) dLon = dLon>0 ? -(2*M_PI-dLon) : (2*M_PI+dLon);
@@ -296,8 +295,8 @@ double radiansToDegrees(double radians)
 
 - (CLLocation *)rhumbDestinationLocationWithBearing:(double)bearing distance:(CLLocationDistance)distance {
     double d = distance/R;  // d = angular distance covered on earth’s surface
-    double lat1 = self.radianLatitude;
-    double lon1 = self.radianLongitude;
+    double lat1 = self.radianCoordinate.latitude;
+    double lon1 = self.radianCoordinate.longitude;
     double brng = degreesToRadians(bearing);
     
     double dLat = d*cos(brng);
@@ -319,10 +318,10 @@ double radiansToDegrees(double radians)
 
 - (CLLocation *)rhumbMidpointWithLocation:(const CLLocation *)location
 {
-    double lat1 = self.radianLatitude;
-    double lon1 = self.radianLongitude;
-    double lat2 = location.radianLatitude;
-    double lon2 = location.radianLongitude;
+    double lat1 = self.radianCoordinate.latitude;
+    double lon1 = self.radianCoordinate.longitude;
+    double lat2 = location.radianCoordinate.latitude;
+    double lon2 = location.radianCoordinate.longitude;
 
     if (fabs(lon2-lon1) > M_PI) lon1 += 2*M_PI; // crossing anti-meridian
     
