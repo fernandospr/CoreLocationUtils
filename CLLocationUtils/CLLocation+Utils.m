@@ -208,7 +208,7 @@ double radiansToDegrees(double radians)
 }
 
 - (CLLocation *)intersectionWithSelfBearing:(double)bearing1 toLocation:(const CLLocation *)location bearing:(double)bearing2
-{self.coordinate
+{
     double lat1 = self.radianCoordinate.latitude;
     double lon1 = self.radianCoordinate.longitude;
     double lat2 = location.radianCoordinate.latitude;
