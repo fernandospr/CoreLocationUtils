@@ -64,19 +64,27 @@
     STAssertEquals(10974.0, distance, @"Distance do not match");
 }
 
-- (void)testPythagorasZeroDistance
+- (void)testPythagorasEquirectangularZeroDistance
 {
     CLLocation *location1 = [[CLLocation alloc] initWithLatitude:40.0 longitude:-73.0];
-    CLLocationDistance distance = [location1 pythagorasDistanceFromLocation:location1];
+    CLLocationDistance distance = [location1 pythagorasEquirectangularDistanceFromLocation:location1];
     STAssertEquals(0.0, distance, @"Distance should be zero");
+}
+
+- (void)testPythagorasEquirectangularSmallDistance
+{
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:51.0 longitude:0.0];
+    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:51.01 longitude:0.0];
+    CLLocationDistance distance = ceil([location1 pythagorasEquirectangularDistanceFromLocation:location2]);
+    STAssertEquals(1112.0, distance, @"Distance do not match");
 }
 
 - (void)testPythagorasSmallDistance
 {
-    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:51.0 longitude:0.0];
-    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:51.01 longitude:0.0];
-    CLLocationDistance distance = ceil([location1 pythagorasDistanceFromLocation:location2]);
-    STAssertEquals(1112.0, distance, @"Distance do not match");
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:-10.0 longitude:-10.0];
+    CLLocation *location2 = [[CLLocation alloc] initWithLatitude:40.0 longitude:40.0];
+    double distance = [location1 pythagorasDistanceFromLocation:location2];
+    STAssertEqualsWithAccuracy(70.71068, distance, 0.1, @"Distance do not match");
 }
 
 - (void)testMidPoint

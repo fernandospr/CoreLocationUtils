@@ -75,7 +75,7 @@ typedef struct {
  *  haversineDistanceFromLocation:
  *
  *  Discussion:
- *    Returns the distance between two locations using the Haversine formula.
+ *    Returns the distance (in meters) between two locations using the Haversine formula.
  *
  *    from: Haversine formula - R. W. Sinnott, "Virtues of the Haversine",
  *                              Sky and Telescope, vol 68, no 2, 1984
@@ -86,7 +86,7 @@ typedef struct {
  *  sphericalLawOfCosDistanceFromLocation:
  *
  *  Discussion:
- *    Returns the distance between two locations using the Spherical Law of cosines formula.
+ *    Returns the distance (in meters) between two locations using the Spherical Law of cosines formula.
  */
 - (CLLocationDistance)sphericalLawOfCosDistanceFromLocation:(const CLLocation *)location;
 
@@ -94,9 +94,17 @@ typedef struct {
  *  pythagorasDistanceFromLocation:
  *
  *  Discussion:
- *    Returns the distance between two locations using the Pythagoras formula.
+ *    Returns the distance (in coordinate units) between two locations using the Pythagoras formula.
  */
-- (CLLocationDistance)pythagorasDistanceFromLocation:(const CLLocation *)location;
+- (double)pythagorasDistanceFromLocation:(const CLLocation *)location;
+
+/*
+ *  pythagorasEquirectangularDistanceFromLocation:
+ *
+ *  Discussion:
+ *    Returns the distance (in meters) between two locations using the Pythagoras formula (equirectangular projection)
+ */
+- (CLLocationDistance)pythagorasEquirectangularDistanceFromLocation:(const CLLocation *)location;
 
 /*
  *  midpointWithLocation:
@@ -138,6 +146,13 @@ typedef struct {
  */
 - (CLLocation *)destinationLocationWithInitialBearing:(double)bearing distance:(CLLocationDistance)distance;
 
+/*
+ *  pythagorasDestinationLocationWithInitialBearing:pythagorasDistance
+ *
+ *  Discussion:
+ *     Returns the destination location from this location having travelled the given distance (in coordinate units) on the
+ *     given initial bearing in degrees.
+ */
 - (CLLocation *)pythagorasDestinationLocationWithInitialBearing:(double)bearing pythagorasDistance:(double)distance;
 
 /*
@@ -154,7 +169,7 @@ typedef struct {
  *  rhumbDistanceFromLocation:
  *
  *  Discussion:
- *    Returns the distance from this point to the supplied location, travelling along a rhumb line.
+ *    Returns the distance (in meters) from this point to the supplied location, travelling along a rhumb line.
  *
  *   see http://williams.best.vwh.net/avform.htm#Rhumb
  */

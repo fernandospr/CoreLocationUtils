@@ -112,13 +112,20 @@ double radiansToDegrees(double radians)
     return acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(dLon)) * R;
 }
 
-- (CLLocationDistance)pythagorasDistanceFromLocation:(const CLLocation *)location
+- (CLLocationDistance)pythagorasEquirectangularDistanceFromLocation:(const CLLocation *)location
 {
     double dLat = degreesToRadians(location.coordinate.latitude - self.coordinate.latitude);
     double dLon = degreesToRadians(location.coordinate.longitude - self.coordinate.longitude);
     double sLat = degreesToRadians(location.coordinate.latitude + self.coordinate.latitude);
     double x = dLon * cos(sLat/2);
     return sqrt(x*x + dLat*dLat) * R;
+}
+
+- (double)pythagorasDistanceFromLocation:(const CLLocation *)location
+{
+    double dLat = location.coordinate.latitude - self.coordinate.latitude;
+    double dLon = location.coordinate.longitude - self.coordinate.longitude;
+    return sqrt(dLon*dLon + dLat*dLat);
 }
 
 - (CLLocation *)midpointWithLocation:(const CLLocation *)location
