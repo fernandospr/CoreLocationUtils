@@ -213,7 +213,47 @@
     CLLocation *location1 = [[CLLocation alloc] initWithLatitude:50.0 longitude:50.0];
     CLLocation *destinationLocation = [location1 destinationLocationWithInitialBearing:45.0 distance:100000];
     STAssertTrue([destinationLocation.prettyLatitude isEqualToString:@"50° 37' 54\" N"], @"Wrong latitude");
-    STAssertTrue([destinationLocation.prettyLongitude isEqualToString:@"51° 00' 09\" E"], @"Wrong latitude");
+    STAssertTrue([destinationLocation.prettyLongitude isEqualToString:@"51° 00' 09\" E"], @"Wrong longitude");
+}
+
+- (void)testPythagorasDestinationLocation
+{
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
+    CLLocation *destinationLocation = [location1 pythagorasDestinationLocationWithInitialBearing:63.435 pythagorasDistance:201.246118];
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.latitude, 90.0, 1.0, @"Wrong latitude");
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.longitude, 180.0, 1.0, @"Wrong longitude");
+}
+
+- (void)testPythagorasDestinationLocation45
+{
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
+    CLLocation *destinationLocation = [location1 pythagorasDestinationLocationWithInitialBearing:45.0 pythagorasDistance:100.0];
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.latitude, 70.710678, 1.0, @"Wrong latitude");
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.longitude, 70.710678, 1.0, @"Wrong longitude");
+}
+
+- (void)testPythagorasDestinationLocation90
+{
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
+    CLLocation *destinationLocation = [location1 pythagorasDestinationLocationWithInitialBearing:90.0 pythagorasDistance:100.0];
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.latitude, 0.0, 1.0, @"Wrong latitude");
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.longitude, 100.0, 1.0, @"Wrong longitude");
+}
+
+- (void)testPythagorasDestinationLocation0Negative
+{
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:-10.0 longitude:0.0];
+    CLLocation *destinationLocation = [location1 pythagorasDestinationLocationWithInitialBearing:0.0 pythagorasDistance:100.0];
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.latitude, 90.0, 1.0, @"Wrong latitude");
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.longitude, 0.0, 1.0, @"Wrong longitude");
+}
+
+- (void)testPythagorasDestinationLocation45Negative
+{
+    CLLocation *location1 = [[CLLocation alloc] initWithLatitude:-20.0 longitude:-10.0];
+    CLLocation *destinationLocation = [location1 pythagorasDestinationLocationWithInitialBearing:45.0 pythagorasDistance:28.284271];
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.latitude, 0.0, 1.0, @"Wrong latitude");
+    STAssertEqualsWithAccuracy(destinationLocation.coordinate.longitude, 10.0, 1.0, @"Wrong longitude");
 }
 
 - (void)testConstructorWithPrettyCoordinates

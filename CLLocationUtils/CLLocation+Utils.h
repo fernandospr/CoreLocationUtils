@@ -138,6 +138,7 @@ typedef struct {
  */
 - (CLLocation *)destinationLocationWithInitialBearing:(double)bearing distance:(CLLocationDistance)distance;
 
+- (CLLocation *)pythagorasDestinationLocationWithInitialBearing:(double)bearing pythagorasDistance:(double)distance;
 
 /*
  *  intersectionWithSelfBearing:toLocation:bearing:

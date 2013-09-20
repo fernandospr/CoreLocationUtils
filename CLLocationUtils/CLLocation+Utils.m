@@ -175,6 +175,12 @@ double radiansToDegrees(double radians)
     return [[CLLocation alloc] initWithRadianLatitude:lat2 radianLongitude:lon2];
 }
 
+- (CLLocation *)pythagorasDestinationLocationWithInitialBearing:(double)bearing pythagorasDistance:(double)distance {
+    double lon1 = distance * sin(degreesToRadians(bearing)) + self.coordinate.longitude;
+    double lat1 = distance * cos(degreesToRadians(bearing)) + self.coordinate.latitude;
+    return [[CLLocation alloc] initWithLatitude:lat1 longitude:lon1];
+}
+
 - (double)angleWithLocation:(const CLLocation *)location
 {
     double lat1 = degreesToRadians(self.coordinate.latitude);
