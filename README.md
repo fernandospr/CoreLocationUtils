@@ -3,10 +3,6 @@ CoreLocationUtils
 
 A category with convenient methods for CLLocation, based on **<a href="http://www.movable-type.co.uk/scripts/latlong.html">http://www.movable-type.co.uk/scripts/latlong.html</a>**
 
-## Usage
-
-Copy CLLocationUtils to your project, include CLLocation+Utils.h and start using!
-
 ## Features
 
 * Convenient CLLocation initializers:
@@ -21,3 +17,9 @@ Copy CLLocationUtils to your project, include CLLocation+Utils.h and start using
 * Midpoint along a great circle path between coordinates
 * Initial/final bearings to target location from source location
 * Calculate target location with a given distance and bearing from source location
+
+## Usage
+
+Copy CLLocationUtils to your project, include CLLocation+Utils.h and start using!
+
+Please check CLLocationUtilsTests for examples.
