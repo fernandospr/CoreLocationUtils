@@ -14,6 +14,10 @@ static const NSInteger R = 6371000;
 
 @implementation CLLocation (Utils)
 
+- (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate {
+    return [self initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+}
+
 double degreesToRadians(double degrees)
 {
     return degrees / 180 * M_PI;
