@@ -27,6 +27,13 @@ typedef struct {
 } CLLocationRadianCoordinate2D;
 
 @interface CLLocation (Utils)
+/*
+ *  initWithCoordinate2D:coordinate
+ *
+ *  Discussion:
+ *    Initialize with a CLLocationCoordinate2D struct only.
+ */
+- (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
 
 /*
  *  initWithRadianLatitude:radianLongitude
